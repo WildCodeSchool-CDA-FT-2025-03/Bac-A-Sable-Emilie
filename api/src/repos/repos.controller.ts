@@ -2,6 +2,7 @@ import express from "express";
 import data from "../../data.json";
 import type { Request, Response } from "express";
 import type { Repos } from "./repos.type";
+import { validateRepo } from "./repos.validate";
 
 const repos = express.Router();
 repos.get("/", (_, res: Response) => {
@@ -16,6 +17,12 @@ repos.get("/:id", (req: Request, res: Response) => {
 	} else {
 		res.sendStatus(400);
 	}
+});
+
+repos.post("/", validateRepo, (req: Request, res: Response) => {
+	const newRepo = { ...req.body, id: data.length + 1 };
+	data.push(newRepo);
+	res.status(201).json(newRepo);
 });
 
 export default repos;
