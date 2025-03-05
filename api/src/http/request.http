@@ -9,7 +9,7 @@ POST http://localhost:3000/api/repos HTTP/1.1
 content-type: application/json
 
 {
-  "description": "Super pupu",
-	"name": "EmiLy-Ly-san",
+  "description": "Super popo",
+	"name": 128,
 	"url": "https://github.com/EmiLy-Ly-san/EmiLy-Ly-san"
 }
