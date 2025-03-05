@@ -19,8 +19,9 @@ repos.get("/:id", (req: Request, res: Response) => {
 });
 
 repos.post("/", (req: Request, res: Response) => {
-	console.log(req.body);
-	res.status(200).send("Tout est ok pour ajouter");
+	const newRepo = { ...req.body, id: data.length + 1 };
+	data.push(newRepo);
+	res.status(201).json(newRepo);
 });
 
 export default repos;
