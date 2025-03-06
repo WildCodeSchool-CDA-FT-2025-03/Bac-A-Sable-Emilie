@@ -23,8 +23,9 @@ repos.get("/", (req: Request, res: Response) => {
 				: ([] as string[]);
 		console.log(fields);
 		result = result.map((repo: Repos) => {
-			// 🔥 Vérifier que fields est bien un tableau avant d'utiliser reduce
-			if (!Array.isArray(fields)) return repo;
+			// 🔥 Vérifier que fields est bien un tableau avant d'utiliser reduce car TS indique qu'il pourrait etre autre chose
+			if (!Array.isArray(fields)) return repo; // ✅ Protèger contre l'erreur :
+			//  Ici on dit que si fields n'est pas un tableau, on retourne simplement repo tel quel sans filtrer les champs
 			const res = fields.reduce(
 				(acc, f) =>
 					// biome-ignore lint/performance/noAccumulatingSpread: <explanation>
