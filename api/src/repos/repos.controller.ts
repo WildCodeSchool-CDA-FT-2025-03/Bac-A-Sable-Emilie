@@ -67,4 +67,27 @@ repos.delete("/:id", (req: Request, res: Response) => {
 	res.status(204);
 });
 
+repos.put("/:id", (req: Request, res: Response) => {
+	const repoToFind = reposState.find(
+		(repo) => repo.id === Number(req.params.id),
+	);
+	console.log(repoToFind);
+	const { description, id, isPrivate, name, url } = req.body as Repos;
+
+	console.log(repoToFind);
+	if (repoToFind) {
+		repoToFind.description = description ?? repoToFind.description;
+		// 🔥 ?? opérateur de coalescence des nuls (nullish coalescing operator) en JavaScript et TypeScript.
+		// Si description est fourni dans req.body, il sera utilisé. Si elle est undefined ou null, on garde repoToFind.description inchangé.
+		// C'est utile pour éviter d'écraser des valeurs existantes lorsqu'une clé est absente du req.body
+		repoToFind.id = id ?? repoToFind.id; // ⚠️Modifier l'ID peut être problématique
+		repoToFind.isPrivate = isPrivate ?? repoToFind.isPrivate;
+		repoToFind.name = name ?? repoToFind.name;
+		repoToFind.url = url ?? repoToFind.url;
+		res.status(200).json(repoToFind);
+	} else {
+		res.sendStatus(400);
+	}
+});
+
 export default repos;

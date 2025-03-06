@@ -1,7 +1,7 @@
 GET http://localhost:3000/api/repos
 ###
 
-GET http://localhost:3000/api/repos/6
+GET http://localhost:3000/api/repos/2
 
 ###
 
@@ -17,3 +17,13 @@ content-type: application/json
 ###
 
 DELETE http://localhost:3000/api/repos/6 HTTP/1.1
+
+###
+PUT http://localhost:3000/api/repos/2 HTTP/1.1
+content-type: application/json
+
+{
+  "description": "Super Em",
+	"name": "Coucou",
+	"url": "https://github.com/EmiLy-Ly-san/EmiLy-Ly-san"
+}
