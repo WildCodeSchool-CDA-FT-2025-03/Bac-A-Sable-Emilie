@@ -6,7 +6,7 @@ import { validateRepo } from "./repos.validate";
 
 const repos = express.Router();
 
-const reposState = data;
+let reposState = data;
 
 repos.get("/", (req: Request, res: Response) => {
 	console.log(req.query);
@@ -62,7 +62,8 @@ repos.post("/", validateRepo, (req: Request, res: Response) => {
 });
 
 repos.delete("/:id", (req: Request, res: Response) => {
-	console.log("Hit, delete controller");
+	reposState = reposState.filter((repo) => repo.id !== Number(req.params.id));
+	console.log(reposState);
 	res.status(204);
 });
 
