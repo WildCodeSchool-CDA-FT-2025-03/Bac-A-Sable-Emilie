@@ -7,9 +7,15 @@ import { validateRepo } from "./repos.validate";
 const repos = express.Router();
 repos.get("/", (req: Request, res: Response) => {
 	console.log(req.query);
-	const result = req.query.isPrivate
+
+	let result = req.query.isPrivate
 		? data.filter((rep) => rep.isPrivate.toString() === req.query.isPrivate)
 		: data;
+
+	if (req.query.limit && result.length > +req.query.limit) {
+		result = result.splice(0, +req.query.limit);
+	}
+
 	res.status(200).json(result);
 });
 
