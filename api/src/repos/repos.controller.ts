@@ -5,6 +5,9 @@ import type { Repos } from "./repos.type";
 import { validateRepo } from "./repos.validate";
 
 const repos = express.Router();
+
+const reposState = data;
+
 repos.get("/", (req: Request, res: Response) => {
 	console.log(req.query);
 
@@ -29,7 +32,8 @@ repos.get("/", (req: Request, res: Response) => {
 			const res = fields.reduce(
 				(acc, f) =>
 					// biome-ignore lint/performance/noAccumulatingSpread: <explanation>
-					f in repo ? { ...acc, [f]: repo[f as keyof Repos] } : acc, // ✅ Vérifier si la clé existe dans l'objet repo car TS disait que f pourrait etre undefined + preciser le type de f dans Repos donc une cle de l'objet
+					f in repo ? { ...acc, [f]: repo[f as keyof Repos] } : acc, // ✅ Vérifier si la clé existe dans l'objet repo car TS disait que f pourrait etre undefined
+				// + preciser le type de f dans Repos donc une cle de l'objet
 				{} as Partial<Repos>, // ✅ Préciser le type de l'accumulateur
 			);
 			return res;
@@ -40,7 +44,9 @@ repos.get("/", (req: Request, res: Response) => {
 });
 
 repos.get("/:id", (req: Request, res: Response) => {
-	const repo = data.find((rep) => rep.id === Number(req.params.id)) as Repos;
+	const repo = reposState.find(
+		(rep) => rep.id === Number(req.params.id),
+	) as Repos;
 
 	if (repo) {
 		res.status(200).json(repo);
@@ -50,9 +56,14 @@ repos.get("/:id", (req: Request, res: Response) => {
 });
 
 repos.post("/", validateRepo, (req: Request, res: Response) => {
-	const newRepo = { ...req.body, id: data.length + 1 };
-	data.push(newRepo);
+	const newRepo = { ...req.body, id: reposState.length + 1 };
+	reposState.push(newRepo);
 	res.status(201).json(newRepo);
+});
+
+repos.delete("/:id", (req: Request, res: Response) => {
+	console.log("Hit, delete controller");
+	res.status(204);
 });
 
 export default repos;
