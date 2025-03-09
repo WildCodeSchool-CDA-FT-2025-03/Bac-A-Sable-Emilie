@@ -3,4 +3,5 @@ export type Repos = {
 	id: number;
 	name: string;
 	url: string;
+	isPrivate: boolean;
 };
