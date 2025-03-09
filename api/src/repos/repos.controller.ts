@@ -12,8 +12,10 @@ repos.get("/", (req: Request, res: Response) => {
 	console.log(req.query);
 
 	let result = req.query.isPrivate
-		? data.filter((rep) => rep.isPrivate.toString() === req.query.isPrivate)
-		: data;
+		? reposState.filter(
+				(rep) => rep.isPrivate.toString() === req.query.isPrivate,
+			)
+		: reposState;
 
 	if (req.query.limit && result.length > +req.query.limit) {
 		result = result.splice(0, +req.query.limit);
@@ -51,20 +53,30 @@ repos.get("/:id", (req: Request, res: Response) => {
 	if (repo) {
 		res.status(200).json(repo);
 	} else {
-		res.sendStatus(400);
+		console.log({
+			error: { msg: `Route delete, id not found, ${req.params.id}` },
+		});
+		res.sendStatus(404);
 	}
 });
 
 repos.post("/", validateRepo, (req: Request, res: Response) => {
-	const newRepo = { ...req.body, id: data[data.length - 1].id + 1 };
-	data.push(newRepo);
+	const newRepo = { ...req.body, id: reposState[reposState.length - 1].id + 1 };
+	reposState.push(newRepo);
 	res.status(201).json(newRepo);
 });
 
 repos.delete("/:id", (req: Request, res: Response) => {
-	reposState = reposState.filter((repo) => repo.id !== Number(req.params.id));
-	console.log(reposState);
-	res.status(204);
+	if (reposState.some((repo) => repo.id === Number(req.params.id))) {
+		reposState = reposState.filter((repo) => repo.id !== Number(req.params.id));
+		console.log(reposState);
+		res.sendStatus(204);
+	} else {
+		console.log({
+			error: { msg: `Route delete, id not found, ${req.params.id}` },
+		});
+		res.sendStatus(404);
+	}
 });
 
 repos.put("/:id", (req: Request, res: Response) => {
