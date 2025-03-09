@@ -56,8 +56,8 @@ repos.get("/:id", (req: Request, res: Response) => {
 });
 
 repos.post("/", validateRepo, (req: Request, res: Response) => {
-	const newRepo = { ...req.body, id: reposState.length + 1 };
-	reposState.push(newRepo);
+	const newRepo = { ...req.body, id: data[data.length - 1].id + 1 };
+	data.push(newRepo);
 	res.status(201).json(newRepo);
 });
 
