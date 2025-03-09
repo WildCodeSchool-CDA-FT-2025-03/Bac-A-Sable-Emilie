@@ -20,7 +20,7 @@ repos.get("/:id", (req: Request, res: Response) => {
 });
 
 repos.post("/", validateRepo, (req: Request, res: Response) => {
-	const newRepo = { ...req.body, id: data.length + 1 };
+	const newRepo = { ...req.body, id: data[data.length - 1].id + 1 };
 	data.push(newRepo);
 	res.status(201).json(newRepo);
 });

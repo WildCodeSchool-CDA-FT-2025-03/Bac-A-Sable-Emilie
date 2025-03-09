@@ -1,7 +1,8 @@
 GET http://localhost:3000/api/repos
 ###
 
-GET http://localhost:3000/api/repos/1
+GET http://localhost:3000/api/repos/31
+
 
 ###
 
@@ -10,6 +11,6 @@ content-type: application/json
 
 {
   "description": "Super pepepepe",
-	"name": 125,
+	"name": "pupu",
 	"url": "https://github.com/EmiLy-Ly-san/EmiLy-Ly-san"
 }
