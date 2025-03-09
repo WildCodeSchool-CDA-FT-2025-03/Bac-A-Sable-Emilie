@@ -3,6 +3,7 @@ import data from "../../data.json";
 import type { Request, Response } from "express";
 import type { Repos } from "./repos.type";
 import { validateRepo } from "./repos.validate";
+import logger from "../service/logger";
 
 const repos = express.Router();
 
@@ -36,6 +37,9 @@ repos.get("/", (req: Request, res: Response) => {
 					// biome-ignore lint/performance/noAccumulatingSpread: <explanation>
 					f in repo ? { ...acc, [f]: repo[f as keyof Repos] } : acc, // ✅ Vérifier si la clé existe dans l'objet repo car TS disait que f pourrait etre undefined
 				// + preciser le type de f dans Repos donc une cle de l'objet
+				//Tour 1 -> acc = {}, field = "id" => { "id": "dejenzencor" }
+				// Tour 2 -> acc = { "id": "dejenzencor" }, field = "url" => { "id": "dejenzencor", "url": "http://..."}
+
 				{} as Partial<Repos>, // ✅ Préciser le type de l'accumulateur
 			);
 			return res;
@@ -72,8 +76,12 @@ repos.delete("/:id", (req: Request, res: Response) => {
 		console.log(reposState);
 		res.sendStatus(204);
 	} else {
-		console.log({
-			error: { msg: `Route delete, id not found, ${req.params.id}` },
+		// console.log({
+		// 	error: { msg: `Route delete, id not found, ${req.params.id}` },
+		// });
+		//	🔥 UTILISATION DU LOGGER
+		logger.error({
+			error: { msg: `Route delete, id not found, ${req.params.reposId}` },
 		});
 		res.sendStatus(404);
 	}
