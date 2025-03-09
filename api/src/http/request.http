@@ -1,7 +1,7 @@
 GET http://localhost:3000/api/repos
 ###
 
-GET http://localhost:3000/api/repos/2
+GET http://localhost:3000/api/repos/9
 
 ###
 
@@ -11,12 +11,12 @@ content-type: application/json
 {
   "description": "Super pepepepe",
 	"name": "pupu",
-	"url": "https://github.com/EmiLy-Ly-san/EmiLy-Ly-san"
+	"url": "https://github.com/EmiLy-Ly-san/EmiLy-Lycd Accept-Datetime: -san"
 }
 
 ###
 
-DELETE http://localhost:3000/api/repos/6 HTTP/1.1
+DELETE http://localhost:3000/api/repos/9 HTTP/1.1
 
 ###
 PUT http://localhost:3000/api/repos/2 HTTP/1.1
