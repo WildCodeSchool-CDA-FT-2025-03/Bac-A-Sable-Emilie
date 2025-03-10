@@ -8,8 +8,12 @@ function App() {
 	return (
 		<>
 			<h1>All my repos</h1>
-			{data.map((repo) => (
-				<RepoCard key={repo.id} repo={repo} cls="red">
+			{data.map((repo, index) => (
+				<RepoCard
+					key={repo.id}
+					repo={repo}
+					cls={index % 2 === 0 ? "orange" : "light-orange"}
+				>
 					<span>{repo.url}</span>
 				</RepoCard>
 			))}
