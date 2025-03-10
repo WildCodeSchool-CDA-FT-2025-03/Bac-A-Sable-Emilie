@@ -1,4 +1,5 @@
 import "./App.css";
+import RepoCard from "./components/RepoCard";
 import useRepos from "./services/useRepo";
 
 function App() {
@@ -8,7 +9,9 @@ function App() {
 		<>
 			<h1>All my repos</h1>
 			{data.map((repo) => (
-				<h2 key={repo.id}>{repo.name}</h2>
+				<RepoCard key={repo.id} repo={repo} cls="red">
+					<span>{repo.url}</span>
+				</RepoCard>
 			))}
 		</>
 	);
