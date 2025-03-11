@@ -1,24 +1,21 @@
+import { Outlet } from "react-router-dom";
 import "./App.css";
-import RepoCard from "./components/RepoCard";
-import useRepos from "./services/useRepo";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
+// ********** MAIN LAYOUT
 function App() {
-	const { data } = useRepos();
-	console.log({ data });
-	return (
-		<>
-			<h1>All my repos</h1>
-			{data.map((repo, index) => (
-				<RepoCard
-					key={repo.id}
-					repo={repo}
-					cls={index % 2 === 0 ? "orange" : "light-orange"}
-				>
-					<span>{repo.url}</span>
-				</RepoCard>
-			))}
-		</>
-	);
+	const user = "admin";
+	if (user === "admin") {
+		return (
+			<>
+				<Header />
+				<Outlet />
+				<Footer />
+			</>
+		);
+	}
+	return <p>Not allowed</p>;
 }
 
 export default App;

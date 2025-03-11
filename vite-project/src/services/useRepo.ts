@@ -1,9 +1,10 @@
 import type { Repo } from "../../types/repo";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import client from "./client";
 
 const useRepos = () => {
 	const [data, setData] = useState<Repo[]>([]);
+	const [oneRepo, setOneRepo] = useState<Repo>();
 
 	const getAllRepos = () => {
 		client
@@ -16,12 +17,18 @@ const useRepos = () => {
 			});
 	};
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-	useEffect(() => {
-		getAllRepos();
-	}, []);
+	const getOneRepo = (id: string) => {
+		client
+			.get(`/repos/${id}`)
+			.then((repos) => {
+				setOneRepo(repos.data as Repo);
+			})
+			.catch((error) => {
+				console.error(error);
+			});
+	};
 
-	return { data };
+	return { data, getAllRepos, oneRepo, getOneRepo };
 };
 
 export default useRepos;
