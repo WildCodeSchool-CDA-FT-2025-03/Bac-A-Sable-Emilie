@@ -1,29 +1,70 @@
 import { useEffect } from "react";
 import RepoCard from "../components/RepoCard";
 import useRepos from "../services/useRepo";
+import { useSearchParams } from "react-router-dom";
 
 export default function Home() {
 	const { data, getAllRepos } = useRepos();
-	console.log({ data });
+	const [searchParams, setSearchParams] = useSearchParams();
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
-		getAllRepos();
+		getAllRepos(
+			searchParams.get("limit") || "10",
+			searchParams.get("isPrivate") || "false",
+		);
+		console.log(searchParams);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [searchParams]);
 
+	console.log({ data });
 	return (
 		<>
 			<h1>All my repos</h1>
-			{data.map((repo, index) => (
-				<RepoCard
-					key={repo.id}
-					repo={repo}
-					cls={index % 2 === 0 ? "orange" : "light-orange"}
+			<label>
+				Nombre de repos affichés
+				<select
+					name="limit"
+					value={searchParams.get("limit") || "10"}
+					onChange={(e) =>
+						setSearchParams({
+							limit: e.target.value,
+							isPrivate: searchParams.get("isPrivate") || "false",
+						})
+					}
 				>
-					<span>{repo.url}</span>
-				</RepoCard>
-			))}
+					<option value="10">10</option>
+					<option value="20">20</option>
+					<option value="30">30</option>
+				</select>
+			</label>
+			<label>
+				Privé
+				<select
+					name="isPrivate"
+					value={searchParams.get("isPrivate") || "false"}
+					onChange={(e) =>
+						setSearchParams({
+							limit: searchParams.get("limit") || "10",
+							isPrivate: e.target.value,
+						})
+					}
+				>
+					<option value="false">Non</option>
+					<option value="true">Oui</option>
+				</select>
+			</label>
+			<main>
+				{data.map((repo, index) => (
+					<RepoCard
+						key={repo.id}
+						repo={repo}
+						cls={index % 2 === 0 ? "orange" : "light-orange"}
+					>
+						<span>{repo.url}</span>
+					</RepoCard>
+				))}
+			</main>
 		</>
 	);
 }

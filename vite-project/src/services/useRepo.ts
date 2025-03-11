@@ -5,10 +5,11 @@ import client from "./client";
 const useRepos = () => {
 	const [data, setData] = useState<Repo[]>([]);
 	const [oneRepo, setOneRepo] = useState<Repo>();
+	const [error, setError] = useState(false);
 
-	const getAllRepos = () => {
+	const getAllRepos = (limit: string, isPrivate: string) => {
 		client
-			.get("/repos")
+			.get(`/repos?limit=${limit}&isPrivate=${isPrivate}`)
 			.then((repos) => {
 				setData(repos.data as Repo[]);
 			})
@@ -24,11 +25,12 @@ const useRepos = () => {
 				setOneRepo(repos.data as Repo);
 			})
 			.catch((error) => {
+				setError(true);
 				console.error(error);
 			});
 	};
 
-	return { data, getAllRepos, oneRepo, getOneRepo };
+	return { data, getAllRepos, oneRepo, getOneRepo, error };
 };
 
 export default useRepos;
