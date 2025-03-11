@@ -9,7 +9,10 @@ export default function Home() {
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
-		getAllRepos(searchParams.get("limit") || "10");
+		getAllRepos(
+			searchParams.get("limit") || "10",
+			searchParams.get("isPrivate") || "false",
+		);
 		console.log(searchParams);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [searchParams]);
@@ -23,11 +26,32 @@ export default function Home() {
 				<select
 					name="limit"
 					value={searchParams.get("limit") || "10"}
-					onChange={(e) => setSearchParams({ limit: e.target.value })}
+					onChange={(e) =>
+						setSearchParams({
+							limit: e.target.value,
+							isPrivate: searchParams.get("isPrivate") || "false",
+						})
+					}
 				>
 					<option value="10">10</option>
 					<option value="20">20</option>
 					<option value="30">30</option>
+				</select>
+			</label>
+			<label>
+				Privé
+				<select
+					name="isPrivate"
+					value={searchParams.get("isPrivate") || "false"}
+					onChange={(e) =>
+						setSearchParams({
+							limit: searchParams.get("limit") || "10",
+							isPrivate: e.target.value,
+						})
+					}
+				>
+					<option value="false">Non</option>
+					<option value="true">Oui</option>
 				</select>
 			</label>
 			<main>
