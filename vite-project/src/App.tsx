@@ -5,13 +5,17 @@ import Footer from "./components/Footer";
 
 // ********** MAIN LAYOUT
 function App() {
-	return (
-		<>
-			<Header />
-			<Outlet />
-			<Footer />
-		</>
-	);
+	const user = "admin";
+	if (user === "admin") {
+		return (
+			<>
+				<Header />
+				<Outlet />
+				<Footer />
+			</>
+		);
+	}
+	return <p>Not allowed</p>;
 }
 
 export default App;

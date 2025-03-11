@@ -1,5 +1,5 @@
 import type { Repo } from "../../types/repo";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import client from "./client";
 
 const useRepos = () => {
@@ -28,12 +28,7 @@ const useRepos = () => {
 			});
 	};
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-	useEffect(() => {
-		getAllRepos();
-	}, []);
-
-	return { data, oneRepo, getOneRepo };
+	return { data, getAllRepos, oneRepo, getOneRepo };
 };
 
 export default useRepos;

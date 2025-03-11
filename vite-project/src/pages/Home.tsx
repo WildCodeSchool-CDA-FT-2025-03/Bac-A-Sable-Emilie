@@ -1,9 +1,17 @@
+import { useEffect } from "react";
 import RepoCard from "../components/RepoCard";
 import useRepos from "../services/useRepo";
 
 export default function Home() {
-	const { data } = useRepos();
+	const { data, getAllRepos } = useRepos();
 	console.log({ data });
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+	useEffect(() => {
+		getAllRepos();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
 	return (
 		<>
 			<h1>All my repos</h1>
