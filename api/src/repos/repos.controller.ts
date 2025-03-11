@@ -19,7 +19,7 @@ repos.get("/", (req: Request, res: Response) => {
 		: reposState;
 
 	if (req.query.limit && result.length > +req.query.limit) {
-		result = result.splice(0, +req.query.limit);
+		result = result.slice(0, +req.query.limit);
 	}
 
 	if (req.query.fields) {

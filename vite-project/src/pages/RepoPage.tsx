@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import useRepos from "../services/useRepo";
 
 export default function RepoPage() {
 	const { id } = useParams();
-	const { oneRepo, getOneRepo } = useRepos();
+	const { oneRepo, getOneRepo, error } = useRepos();
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
@@ -12,6 +12,10 @@ export default function RepoPage() {
 		getOneRepo(id as string);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [id]);
+
+	if (error) {
+		return <Navigate to="/" replace />;
+	}
 
 	return (
 		<>
