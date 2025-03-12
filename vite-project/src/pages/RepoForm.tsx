@@ -33,6 +33,12 @@ export default function RepoForm() {
 					name="description"
 					handleNewRepo={handleNewRepo}
 				/>
+				<InputForm
+					title="URL"
+					value={newRepo.url}
+					name="url"
+					handleNewRepo={handleNewRepo}
+				/>
 			</form>
 		</>
 	);
