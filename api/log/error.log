@@ -5,3 +5,5 @@
 2025-03-12T11:45:22.460Z, error, {"error":{"msg":"Validation Repo, \"name\" must be a string"}}
 2025-03-12T11:45:38.874Z, error, {"error":{"msg":"Validation Repo, \"name\" must be a string"}}
 2025-03-12T11:45:51.528Z, error, {"error":{"msg":"Validation Repo, \"isOrivate\" is required"}}
+2025-03-12T11:46:43.654Z, error, {"error":{"msg":"Validation Repo, \"languages[0].node.name\" is not allowed to be empty"}}
+2025-03-12T11:46:57.478Z, error, {"error":{"msg":"Validation Repo, \"languages[0].node.name\" is not allowed to be empty"}}
