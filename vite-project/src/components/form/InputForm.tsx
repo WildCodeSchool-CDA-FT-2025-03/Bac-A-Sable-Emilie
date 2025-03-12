@@ -1,26 +1,19 @@
-type inputFormProps = {
-	value: string;
+import { forwardRef } from "react";
+
+type InputFormProps = {
 	name: string;
 	title: string;
-	handleNewRepo: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export default function InputForm({
-	handleNewRepo,
-	name,
-	value,
-	title,
-}: inputFormProps) {
-	return (
-		<label htmlFor="">
-			{title}
-			<input
-				type="text"
-				name={name}
-				value={value}
-				onChange={handleNewRepo}
-				required
-			/>
-		</label>
-	);
-}
+const InputForm = forwardRef<HTMLInputElement, InputFormProps>(
+	({ title, name }, ref) => {
+		return (
+			<label>
+				{title}
+				<input type="text" name={name} ref={ref} required />
+			</label>
+		);
+	},
+);
+
+export default InputForm;

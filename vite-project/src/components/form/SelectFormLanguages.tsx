@@ -1,14 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, forwardRef } from "react";
 import useLanguages from "../../services/useLanguages";
 
-type SelectFormLanguagesProps = {
-	value: string;
-	handleNewRepo: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-};
-function SelectFormLanguages({
-	value,
-	handleNewRepo,
-}: SelectFormLanguagesProps) {
+const SelectFormLanguages = forwardRef<HTMLSelectElement>((_, ref) => {
 	const { languages, getAllLanguages } = useLanguages();
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
@@ -20,15 +13,15 @@ function SelectFormLanguages({
 	return (
 		<label htmlFor="">
 			Choix du languages
-			<select name="languages" value={value} onChange={handleNewRepo} required>
+			<select name="languages" ref={ref} required>
 				{languages.map((lg) => (
-					<option value={lg} key={lg}>
+					<option key={lg} value={lg}>
 						{lg}
 					</option>
 				))}
 			</select>
 		</label>
 	);
-}
+});
 
 export default SelectFormLanguages;
