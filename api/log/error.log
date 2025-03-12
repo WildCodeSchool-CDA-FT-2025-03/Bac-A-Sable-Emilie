@@ -1,2 +1,7 @@
 2025-03-09T11:22:49.560Z, error, {"error":{"msg":"Route delete, id not found, undefined"}}
 2025-03-09T11:23:41.818Z, error, {"error":{"msg":"Validation Repo, \"name\" must be a string"}}
+2025-03-12T11:37:37.541Z, error, {"error":{"msg":"Validation Repo, \"isPrivate\" is not allowed"}}
+2025-03-12T11:40:59.086Z, error, {"error":{"msg":"Validation Repo, \"isOrivate\" is required"}}
+2025-03-12T11:45:22.460Z, error, {"error":{"msg":"Validation Repo, \"name\" must be a string"}}
+2025-03-12T11:45:38.874Z, error, {"error":{"msg":"Validation Repo, \"name\" must be a string"}}
+2025-03-12T11:45:51.528Z, error, {"error":{"msg":"Validation Repo, \"isOrivate\" is required"}}

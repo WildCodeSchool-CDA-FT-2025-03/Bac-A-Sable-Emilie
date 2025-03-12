@@ -30,7 +30,15 @@ const useRepos = () => {
 			});
 	};
 
-	return { data, getAllRepos, oneRepo, getOneRepo, error };
+	const addNewRepo = async (repo: Repo) => {
+		try {
+			await client.post("/repos", repo);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	return { data, getAllRepos, oneRepo, getOneRepo, error, addNewRepo };
 };
 
 export default useRepos;
