@@ -4,4 +4,5 @@ export type Repo = {
 	name: string;
 	url: string;
 	isPrivate: boolean;
+	languages: Languages[];
 };
