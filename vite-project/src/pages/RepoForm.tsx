@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Repo } from "../../types/repo";
+import InputForm from "../components/form/InputForm";
 
 export default function RepoForm() {
 	const initialRepo = {
@@ -11,30 +12,27 @@ export default function RepoForm() {
 	const [newRepo, setNewRepo] = useState<Repo>(initialRepo);
 	console.log({ newRepo });
 
+	const handleNewRepo = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setNewRepo(() => ({ ...newRepo, [e.target.name]: e.target.value })); // [e.target.name] cpmme object key plutot aue name directement pour rendre cette cle
+		//  dynamique car on ne change pas toujours la meme selon le champs. Par rx on a name, on a aussi descri[yion de possible
+	};
+
 	return (
 		<>
 			<form className="container">
 				<h1>Adding one repo</h1>
-				<label htmlFor="">
-					Repo title
-					<input
-						type="text"
-						value={newRepo.name}
-						onChange={(e) =>
-							setNewRepo(() => ({ ...newRepo, name: e.target.value }))
-						}
-					/>
-				</label>
-				<label htmlFor="">
-					Description
-					<input
-						type="text"
-						value={newRepo.description}
-						onChange={(e) =>
-							setNewRepo(() => ({ ...newRepo, description: e.target.value }))
-						}
-					/>
-				</label>
+				<InputForm
+					title="Repo title"
+					value={newRepo.name}
+					handleNewRepo={handleNewRepo}
+					name="name"
+				/>
+				<InputForm
+					title="Description"
+					value={newRepo.description}
+					name="description"
+					handleNewRepo={handleNewRepo}
+				/>
 			</form>
 		</>
 	);
