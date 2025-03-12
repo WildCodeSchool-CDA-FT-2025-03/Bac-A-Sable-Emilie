@@ -6,6 +6,15 @@ const schema = Joi.object({
 	description: Joi.string().required(),
 	name: Joi.string().required(),
 	url: Joi.string().required(),
+	isPrivate: Joi.boolean().required(),
+	languages: Joi.array().items(
+		Joi.object({
+			size: Joi.number().required(),
+			node: Joi.object({
+				name: Joi.string(),
+			}),
+		}),
+	),
 });
 
 const validateRepo = (req: Request, res: Response, next: NextFunction) => {

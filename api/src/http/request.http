@@ -10,8 +10,15 @@ content-type: application/json
 
 {
   "description": "Super pepepepe",
-	"name": 125,
-	"url": "https://github.com/EmiLy-Ly-san/EmiLy-Lycd Accept-Datetime: -san"
+	"name": "coucou",
+	"url": "https://github.com/EmiLy-Ly-san/EmiLy-Lycd",
+	"isPrivate": true,
+  "languages": [
+    {
+      "size": 0,
+      "node": {}
+    }
+  ]
 }
 
 ###
@@ -27,3 +34,6 @@ content-type: application/json
 	"name": "Coucou",
 	"url": "https://github.com/EmiLy-Ly-san/EmiLy-Ly-san"
 }
+
+###
+GET http://localhost:3000/api/languages

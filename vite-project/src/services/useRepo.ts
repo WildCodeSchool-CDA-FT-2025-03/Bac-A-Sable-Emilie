@@ -1,5 +1,5 @@
 import type { Repo } from "../../types/repo";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import client from "./client";
 
 const useRepos = () => {
@@ -7,7 +7,8 @@ const useRepos = () => {
 	const [oneRepo, setOneRepo] = useState<Repo>();
 	const [error, setError] = useState(false);
 
-	const getAllRepos = (limit: string, isPrivate: string) => {
+	const getAllRepos = useCallback((limit: string, isPrivate: string) => {
+		// CB => Evite la boucle de rafraichissement intempestif lie au fait de mettre cette fonction en dependance du useEffect
 		client
 			.get(`/repos?limit=${limit}&isPrivate=${isPrivate}`)
 			.then((repos) => {
@@ -16,7 +17,7 @@ const useRepos = () => {
 			.catch((error) => {
 				console.error(error);
 			});
-	};
+	}, []);
 
 	const getOneRepo = (id: string) => {
 		client
@@ -30,7 +31,15 @@ const useRepos = () => {
 			});
 	};
 
-	return { data, getAllRepos, oneRepo, getOneRepo, error };
+	const addNewRepo = async (repo: Repo) => {
+		try {
+			await client.post("/repos", repo);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	return { data, getAllRepos, oneRepo, getOneRepo, error, addNewRepo };
 };
 
 export default useRepos;
