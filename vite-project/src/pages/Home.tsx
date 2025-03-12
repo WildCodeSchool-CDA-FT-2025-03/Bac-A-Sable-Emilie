@@ -7,15 +7,13 @@ export default function Home() {
 	const { data, getAllRepos } = useRepos();
 	const [searchParams, setSearchParams] = useSearchParams();
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		getAllRepos(
 			searchParams.get("limit") || "10",
 			searchParams.get("isPrivate") || "false",
 		);
 		console.log(searchParams);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [searchParams]);
+	}, [searchParams, getAllRepos]);
 
 	console.log({ data });
 	return (
