@@ -1,6 +1,6 @@
 export type Repo = {
 	description: string;
-	id: number;
+	id?: number;
 	name: string;
 	url: string;
 	isPrivate: boolean;
