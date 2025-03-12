@@ -4,7 +4,7 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"getRepo": "gh repo list emily-ly-san --json name,description,url,isPrivate --jq \"to_entries | map({id: (.key + 1)} + .value)\" > ./data.json",
+		"getRepo": "gh repo list emily-ly-san --json name,description,url,isPrivate,languages --jq \"to_entries | map({id: (.key + 1)} + .value)\" > ./data.json",
 		"dev": "ts-node-dev ./src/index.ts"
 	},
 	"author": "",

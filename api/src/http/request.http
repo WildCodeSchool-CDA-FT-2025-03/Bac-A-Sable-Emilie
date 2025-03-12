@@ -27,3 +27,6 @@ content-type: application/json
 	"name": "Coucou",
 	"url": "https://github.com/EmiLy-Ly-san/EmiLy-Ly-san"
 }
+
+###
+GET http://localhost:3000/api/languages
