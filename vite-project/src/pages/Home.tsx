@@ -53,7 +53,7 @@ export default function Home() {
 				</select>
 			</label>
 			<main>
-				{data.map((repo, index) => (
+				{data?.length > 0 ? data.map((repo, index) => (
 					<RepoCard
 						key={repo.id}
 						repo={repo}
@@ -61,7 +61,9 @@ export default function Home() {
 					>
 						<span>{repo.url}</span>
 					</RepoCard>
-				))}
+				)) : (
+					<p>Loading...</p>
+				)}
 			</main>
 		</>
 	);
