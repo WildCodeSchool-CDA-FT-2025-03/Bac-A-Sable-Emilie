@@ -9,8 +9,14 @@ const useRepos = () => {
 
 	const getAllRepos = useCallback((limit: string, isPrivate: string) => {
 		// CB => Evite la boucle de rafraichissement intempestif lie au fait de mettre cette fonction en dependance du useEffect
-		client
-			.get(`/repos?limit=${limit}&isPrivate=${isPrivate}`)
+	let url = `/repos?limit=${limit}&isPrivate=${isPrivate}`;
+	
+	if (url.includes('/undefined')) {
+		url = url.replace("/undefined", '');
+	}	
+	
+	client
+			.get(url)
 			.then((repos) => {
 				setData(repos.data as Repo[]);
 			})
