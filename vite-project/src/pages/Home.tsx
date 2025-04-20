@@ -53,7 +53,7 @@ export default function Home() {
 				</select>
 			</label>
 			<main>
-				{data?.length > 0 ? data.map((repo, index) => (
+				{Array.isArray(data) && data?.length > 0 ? data.map((repo, index) => (
 					<RepoCard
 						key={repo.id}
 						repo={repo}
